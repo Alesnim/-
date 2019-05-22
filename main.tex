@@ -1,0 +1,168 @@
+% Задаем класс документа 
+\documentclass[a4paper,14pt]{extreport}
+\usepackage[utf8]{inputenc}
+% Импорт шрифта  Times New Roman 
+\usepackage{xltxtra}
+\usepackage{color}
+\defaultfontfeatures{Ligatures=TeX,Mapping=tex-text}
+\newfontfamily\cyrillicfont{Times New Roman}[Script=Cyrillic]
+\setmainfont{Times New Roman}
+
+% Шрифт для листингов кода
+\setmonofont[BoldFont=font/Hack-Bold.ttf,
+ItalicFont=font/Hack-Italic.ttf,
+BoldItalicFont=font/Hack-BoldItalic.ttf
+]{font/Hack-Regular.ttf}
+% Импорт пакета для работы с киррилицей
+\usepackage{polyglossia}
+\setmainlanguage{russian}
+\setotherlanguage{english}
+
+%Что-то для Бабеля 
+\setkeys{russian}{babelshorthands=true}
+
+\usepackage{amsmath,amssymb,epsfig}
+\usepackage{paralist}
+% Отступ в 1,5 перед каждым абзацем
+\usepackage{indentfirst}
+% Параметры страницы 
+\usepackage {geometry}
+\geometry{left=2.5cm}       % левое поле
+\geometry{right=1.0cm}      % правое поле
+\geometry{top=2.0cm}        % верхнее поле
+\geometry{bottom=2.0cm}     % нижнее поле
+
+\usepackage{listings}
+
+\lstset{ %
+  numbers=left,
+  captionpos= b,
+  numbersep= 4mm,
+  numberstyle= \small,
+  showtabs =\true,
+  frame = single,
+  breaklines=true,
+  extendedchars=\true,
+  }
+
+% Гиперссылки в документе
+\usepackage[unicode]{hyperref}
+\usepackage{cmap}
+% Подключение картинок
+\usepackage{graphicx}
+% Подписи ко всему
+\usepackage{caption}
+% ВАЖНО отступы от края 
+\voffset=2mm
+\RequirePackage{enumitem}
+%\textwidth=18cm
+%\textheight=235mm
+%\hoffset=-20mm
+%voffset=-15mm
+\setenumerate[1]{fullwidth }
+
+% Переопределяем некоторые названия 
+\addto\captionsrussian{\def\contentsname{ОГЛАВЛЕНИЕ}}
+\addto\captionsrussian{\def\bibname{\MakeUppercase{Список литературы}}}
+\renewcommand*{\lstlistingname}{Листинг}
+\addto\captionsrussian{%
+  \renewcommand{\figurename}{Рисунок}%
+  \renewcommand{\tablename}{Таблица}%
+}
+
+% Переопределяем нумерацию в списке литературы 
+\makeatletter
+\renewcommand{\@biblabel}[1]{#1.\hfil}
+%\usepackage{titlesec}
+
+% Переопределяем оглавление
+\usepackage[titles]{tocloft}
+\cftsetpnumwidth{3mm}
+\renewcommand\cftsecdotsep{\cftdot}
+\renewcommand{\cftchappresnum}{Глава~}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftchapaftersnum}{.}
+\cftsetindents{chapter}{0mm}{5mm}
+\newlength{\zyvseclen}
+\settowidth{\zyvseclen}{\cftchappresnum\cftchapaftersnum}
+%\addtolength{\zyvseclen}{2mm}
+\addtolength{\cftchapnumwidth}{\zyvseclen}
+
+% Переопределяем вид заголовков разного уровня
+
+\usepackage {titlesec}
+
+\titleformat{\chapter}{\thispagestyle{fancy}\centering\hyphenpenalty=10000\normalfont\normalsize\bfseries}{
+ГЛАВА \thechapter. }{0pt}{\normalsize\bfseries}
+
+\titleformat{name=\chapter,numberless}[display]
+  {\thispagestyle{fancy}\centering\hyphenpenalty=10000\normalfont\normalsize\bfseries}{}{-2cm}{\normalsize\bfseries}
+  
+  
+\titleformat{\section}{\thispagestyle{fancy}\centering\hyphenpenalty=10000\normalfont\normalsize\bfseries}{
+\thesection. }{0pt}{\normalsize\bfseries}
+
+
+\titleformat{\subsection}{\thispagestyle{fancy}\centering\hyphenpenalty=10000\normalfont\normalsize\bfseries}{
+\thesubsection. }{0pt}{\normalsize\bfseries}
+
+
+\titlespacing{\chapter}{}{0cm}{1.5pt}
+\titlespacing{name=\chapter,numberless}{}{}{1.5pt}
+\titlespacing{\section}{}{1.5pt}{1.5pt}
+\titlespacing{\subsection}{\parindent}{1.5em}{1em}
+\titlespacing{\subsubsection}{\parindent}{1em}{1em}
+
+%Стиль колонтитулов страницы
+% Расположение номера страницы
+
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{}
+\chead{}
+\rhead{}
+\lfoot{}
+\cfoot{} 
+\rfoot{\normalsize\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+
+
+\renewcommand{\section}{\@startsection{section}{1}{0pt}%
+                                {-0.5ex plus -1ex minus -.2ex}%
+                                {0.3ex plus .2ex}%
+{\centering\hyphenpenalty=10000\normalfont\normalsize\bfseries}}
+
+
+
+
+
+
+\newcommand{\normI}{\renewcommand{\baselinestretch}{1.}}
+\newcommand{\biggI}{\renewcommand{\baselinestretch}{1.1}}
+\biggI
+
+
+\usepackage{setspace}
+%\полуторный интервал
+\onehalfspacing
+
+
+\begin{document}
+\input{titlepage}
+\newpage
+\tableofcontents
+\newpage
+\input{intro}
+\input{chap1.tex}
+\input{chap2.tex}
+\chapter*{\MakeUppercase{Заключение}}
+
+\addcontentsline{toc}{chapter}{\MakeUppercase{Заключение}}
+
+\newpage
+\addcontentsline{toc}{chapter}{\MakeUppercase{Список литературы}}
+\input{bibliography.tex}
+\end{document}
