@@ -4,6 +4,7 @@
 % Импорт шрифта  Times New Roman 
 \usepackage{xltxtra}
 \usepackage{color}
+\usepackage{url}
 \defaultfontfeatures{Ligatures=TeX,Mapping=tex-text}
 \newfontfamily\cyrillicfont{Times New Roman}[Script=Cyrillic]
 \setmainfont{Times New Roman}
@@ -137,6 +138,15 @@ BoldItalicFont=font/Hack-BoldItalic.ttf
 
 
 
+\usepackage{enumitem}
+\makeatletter
+\AddEnumerateCounter{\asbuk}{\@asbuk}{м)}
+\makeatother
+\setlist[enumerate,itemize]{leftmargin=0pt,itemindent=2.5em}
+\setlist{nolistsep}
+\renewcommand{\labelitemi}{-}
+\renewcommand{\labelenumi}{\asbuk{enumi})}
+\renewcommand{\labelenumii}{\arabic{enumii})}
 
 
 
@@ -144,6 +154,8 @@ BoldItalicFont=font/Hack-BoldItalic.ttf
 \newcommand{\biggI}{\renewcommand{\baselinestretch}{1.1}}
 \biggI
 
+%понижает требования к заполнению строк
+\sloppy
 
 \usepackage{setspace}
 %\полуторный интервал
@@ -156,6 +168,7 @@ BoldItalicFont=font/Hack-BoldItalic.ttf
 \tableofcontents
 \newpage
 \input{intro}
+
 \input{chap1.tex}
 \input{chap2.tex}
 \chapter*{\MakeUppercase{Заключение}}
